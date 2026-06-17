@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude — Sun'iy Intellekt Yordamchingiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0A0F1E;
+    --bg2: #0F1628;
+    --blue: #4F8EF7;
+    --gold: #F7C948;
+    --white: #F0F4FF;
+    --gray: #8892AA;
+    --border: rgba(79,142,247,0.18);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── CANVAS ── */
+  #canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.35;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 5vw;
+    background: rgba(10,15,30,0.75);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 1.35rem;
+    letter-spacing: -0.02em;
+    color: var(--white);
+  }
+  .logo span { color: var(--blue); }
+
+  nav ul { list-style: none; display: flex; gap: 2.2rem; }
+  nav a {
+    text-decoration: none;
+    color: var(--gray);
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    transition: color .2s;
+  }
+  nav a:hover { color: var(--white); }
+
+  .nav-btn {
+    background: var(--blue);
+    color: #fff !important;
+    padding: 0.5rem 1.2rem;
+    border-radius: 6px;
+    font-weight: 600 !important;
+  }
+  .nav-btn:hover { background: #3a7ae8; color: #fff !important; }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8rem 5vw 4rem;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(79,142,247,0.12);
+    border: 1px solid rgba(79,142,247,0.3);
+    border-radius: 100px;
+    padding: 0.4rem 1rem;
+    font-size: 0.8rem;
+    color: var(--blue);
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    animation: fadeUp .8s ease both;
+  }
+  .badge::before {
+    content: '';
+    width: 7px; height: 7px;
+    background: var(--blue);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 700;
+    line-height: 1.06;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+    animation: fadeUp .9s .1s ease both;
+  }
+
+  h1 em {
+    font-style: normal;
+    background: linear-gradient(135deg, var(--blue) 0%, #9b6dff 60%, var(--gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .subtitle {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: var(--gray);
+    max-width: 560px;
+    line-height: 1.7;
+    margin-bottom: 2.8rem;
+    animation: fadeUp 1s .2s ease both;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    animation: fadeUp 1s .3s ease both;
+  }
+
+  .btn-primary {
+    background: var(--blue);
+    color: #fff;
+    padding: 0.85rem 2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: transform .2s, box-shadow .2s;
+    box-shadow: 0 0 30px rgba(79,142,247,0.35);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 45px rgba(79,142,247,0.5); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    padding: 0.85rem 2rem;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    transition: border-color .2s, background .2s;
+  }
+  .btn-outline:hover { border-color: var(--blue); background: rgba(79,142,247,0.07); }
+
+  /* scroll indicator */
+  .scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--gray);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    animation: bounce 2s infinite;
+  }
+  .scroll-hint svg { opacity: .5; }
+
+  /* ── STATS ── */
+  .stats-row {
+    position: relative; z-index: 1;
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: wrap;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: rgba(15,22,40,0.6);
+    backdrop-filter: blur(8px);
+  }
+
+  .stat {
+    padding: 2.5rem 3.5rem;
+    text-align: center;
+    border-right: 1px solid var(--border);
+  }
+  .stat:last-child { border-right: none; }
+
+  .stat-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.03em;
+  }
+  .stat-num span { color: var(--blue); }
+  .stat-label {
+    font-size: 0.8rem;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 0.3rem;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    position: relative; z-index: 1;
+    padding: 6rem 5vw;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+
+  .section-desc {
+    color: var(--gray);
+    font-size: 1rem;
+    line-height: 1.75;
+    max-width: 540px;
+    margin-bottom: 3.5rem;
+  }
+
+  /* ── CAPABILITIES GRID ── */
+  .cap-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .cap-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.8rem;
+    transition: transform .25s, border-color .25s, box-shadow .25s;
+    cursor: default;
+  }
+  .cap-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(79,142,247,0.45);
+    box-shadow: 0 12px 40px rgba(79,142,247,0.12);
+  }
+
+  .cap-icon {
+    width: 46px; height: 46px;
+    border-radius: 10px;
+    background: rgba(79,142,247,0.12);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+    margin-bottom: 1.1rem;
+  }
+
+  .cap-card h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .cap-card p {
+    font-size: 0.88rem;
+    color: var(--gray);
+    line-height: 1.65;
+  }
+
+  /* ── HOW IT WORKS ── */
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    counter-reset: step;
+  }
+
+  .step {
+    counter-increment: step;
+    position: relative;
+    padding-left: 3.5rem;
+  }
+
+  .step::before {
+    content: counter(step, decimal-leading-zero);
+    position: absolute;
+    left: 0; top: 0;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: rgba(79,142,247,0.25);
+    line-height: 1;
+  }
+
+  .step h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--white);
+  }
+
+  .step p {
+    font-size: 0.88rem;
+    color: var(--gray);
+    line-height: 1.65;
+  }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .t-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.8rem;
+  }
+
+  .stars { color: var(--gold); font-size: 0.85rem; margin-bottom: 1rem; letter-spacing: 0.1em; }
+
+  .t-card blockquote {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--gray);
+    margin-bottom: 1.2rem;
+    font-style: italic;
+  }
+
+  .t-author {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .t-avatar {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    background: rgba(79,142,247,0.15);
+    border: 1px solid var(--border);
+  }
+
+  .t-name { font-weight: 600; font-size: 0.88rem; }
+  .t-role { font-size: 0.78rem; color: var(--gray); }
+
+  /* ── CTA ── */
+  .cta-section {
+    text-align: center;
+    padding: 6rem 5vw;
+    position: relative; z-index: 1;
+    border-top: 1px solid var(--border);
+    background: linear-gradient(0deg, rgba(79,142,247,0.04) 0%, transparent 100%);
+  }
+
+  .cta-glow {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; height: 300px;
+    background: radial-gradient(ellipse, rgba(79,142,247,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-section h2 { max-width: 600px; margin: 0 auto 1rem; }
+  .cta-section p { color: var(--gray); margin-bottom: 2.5rem; max-width: 480px; margin-left: auto; margin-right: auto; }
+
+  /* ── FOOTER ── */
+  footer {
+    position: relative; z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 2rem 5vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  footer p { font-size: 0.82rem; color: var(--gray); }
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a { font-size: 0.82rem; color: var(--gray); text-decoration: none; }
+  .footer-links a:hover { color: var(--white); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: .3; }
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50%       { transform: translateX(-50%) translateY(6px); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    nav ul { display: none; }
+    .stat { padding: 1.8rem 2rem; border-right: none; border-bottom: 1px solid var(--border); }
+    .stat:last-child { border-bottom: none; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="canvas"></canvas>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Cl<span>au</span>de</div>
+  <ul>
+    <li><a href="#imkoniyatlar">Imkoniyatlar</a></li>
+    <li><a href="#qanday">Qanday ishlaydi</a></li>
+    <li><a href="#fikrlar">Fikrlar</a></li>
+    <li><a href="https://claude.ai" class="nav-btn">Boshlash →</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="badge">Anthropic tomonidan yaratilgan</div>
+  <h1>Sizning aqlli<br><em>raqamli hamkoringiz</em></h1>
+  <p class="subtitle">
+    Men Claude — murakkab vazifalarni hal qiluvchi, ijodiy yechimlar taklif etuvchi va har doim sizning tomoningizda bo'luvchi sun'iy intellekt yordamchisiman.
+  </p>
+  <div class="hero-btns">
+    <a href="https://claude.ai" class="btn-primary">Bepul sinab ko'ring</a>
+    <a href="#imkoniyatlar" class="btn-outline">Ko'proq bilib oling</a>
+  </div>
+  <div class="scroll-hint">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    Pastga suring
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-row">
+  <div class="stat">
+    <div class="stat-num">100<span>+</span></div>
+    <div class="stat-label">Til va doira</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">200<span>K</span></div>
+    <div class="stat-label">Token kontekst</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">24<span>/7</span></div>
+    <div class="stat-label">Doim mavjud</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">∞</div>
+    <div class="stat-label">Imkoniyatlar</div>
+  </div>
+</div>
+
+<!-- CAPABILITIES -->
+<section id="imkoniyatlar">
+  <div class="section-label">Nima qila olaman</div>
+  <h2>Har bir ehtiyojingiz<br>uchun yechim</h2>
+  <p class="section-desc">
+    Dasturlashdan ijodiy yozuvgacha, tahlildan loyihalashgacha — men sizga professional darajada yordam beraman.
+  </p>
+  <div class="cap-grid">
+    <div class="cap-card">
+      <div class="cap-icon">💻</div>
+      <h3>Kod yozish va debug</h3>
+      <p>Python, JavaScript, SQL va 50+ dasturlash tillarida kod yozaman, xatolarni topaman va tushuntiraman.</p>
+    </div>
+    <div class="cap-card">
+      <div class="cap-icon">✍️</div>
+      <h3>Ijodiy yozuv</h3>
+      <p>Maqolalar, hikoyalar, marketing matnlari, taqdimotlar — har qanday uslub va tilda.</p>
+    </div>
+    <div class="cap-card">
+      <div class="cap-icon">📊</div>
+      <h3>Ma'lumot tahlili</h3>
+      <p>Murakkab ma'lumotlarni o'qib, tushunib, xulosalar chiqaraman va vizualizatsiya taklif etaman.</p>
+    </div>
+    <div class="cap-card">
+      <div class="cap-icon">🌐</div>
+      <h3>Tarjima va lokalizatsiya</h3>
+      <p>100+ tilda professional sifatdagi tarjima, madaniy kontekstni hisobga olgan holda.</p>
+    </div>
+    <div class="cap-card">
+      <div class="cap-icon">🎨</div>
+      <h3>Dizayn va UI</h3>
+      <p>HTML/CSS veb-sahifalar, SVG grafikalar, interaktiv komponentlar va prototiplar.</p>
+    </div>
+    <div class="cap-card">
+      <div class="cap-icon">🔬</div>
+      <h3>Tadqiqot va xulosalar</h3>
+      <p>Murakkab mavzularni chuqur o'rganib, aniq va tushunarli tarzda taqdim etaman.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="qanday" style="padding-top: 0;">
+  <div style="border-top: 1px solid var(--border); padding-top: 5rem;">
+    <div class="section-label">Qanday ishlaydi</div>
+    <h2>Uch qadamda<br>natijaga erishing</h2>
+    <p class="section-desc">Oddiy va intuitiv interfeys orqali istalgan vazifani menga topshiring.</p>
+    <div class="steps">
+      <div class="step">
+        <h3>Savolingizni yozing</h3>
+        <p>O'zingizning ona tilingizda, istalgan mavzuda — qanchalik murakkab bo'lmasin.</p>
+      </div>
+      <div class="step">
+        <h3>Men tahlil qilaman</h3>
+        <p>Kontekstni tushunib, eng optimal yondashuvni tanlab, javobni shakllantirishni boshlayman.</p>
+      </div>
+      <div class="step">
+        <h3>Natijani oling</h3>
+        <p>Aniq, foydali va tayyor natija — darhol ishlatishingiz mumkin bo'lgan shaklda.</p>
+      </div>
+      <div class="step">
+        <h3>Takomillashtiring</h3>
+        <p>Suhbatni davom ettiring, o'zgartiring, chuqurlashtiring — men har doim tayyorman.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="fikrlar" style="padding-top: 0;">
+  <div style="border-top: 1px solid var(--border); padding-top: 5rem;">
+    <div class="section-label">Foydalanuvchilar fikri</div>
+    <h2>Odamlar nima deydi</h2>
+    <p class="section-desc">Dunyo bo'ylab millionlab odamlar kundalik ishlarida Claudedan foydalanadi.</p>
+    <div class="testimonials">
+      <div class="t-card">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Claude menga bir soatda to'liq veb-sayt yaratishga yordam berdi. Avval haftalar ketar edi!"</blockquote>
+        <div class="t-author">
+          <div class="t-avatar">👨‍💻</div>
+          <div><div class="t-name">Jasur T.</div><div class="t-role">Veb-dasturchi, Toshkent</div></div>
+        </div>
+      </div>
+      <div class="t-card">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Biznes-rejamni yozishda judayam katta yordam berdi. Har bir savolimga batafsil javob olardim."</blockquote>
+        <div class="t-author">
+          <div class="t-avatar">👩‍💼</div>
+          <div><div class="t-name">Malika R.</div><div class="t-role">Tadbirkor, Samarqand</div></div>
+        </div>
+      </div>
+      <div class="t-card">
+        <div class="stars">★★★★★</div>
+        <blockquote>"O'zbek tilida ham a'lo darajada ishlaydi. Diplom ishimni yozishda eng yaxshi yordamchi bo'ldi."</blockquote>
+        <div class="t-author">
+          <div class="t-avatar">🎓</div>
+          <div><div class="t-name">Dilnoza K.</div><div class="t-role">Talaba, Namangan</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div class="cta-glow"></div>
+  <div class="section-label" style="position:relative;">Bugun boshlang</div>
+  <h2 style="position:relative;">Hammasi bepul,<br>hoziroq sinab ko'ring</h2>
+  <p style="position:relative;">Ro'yxatdan o'tish shart emas. Bir marta urinib ko'ring va o'zingiz his qiling.</p>
+  <a href="https://claude.ai" class="btn-primary" style="position:relative; display:inline-block;">claude.ai ga o'tish →</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">Cl<span>au</span>de</div>
+  <p>© 2025 Anthropic, PBC. Barcha huquqlar himoyalangan.</p>
+  <div class="footer-links">
+    <a href="https://anthropic.com">Anthropic</a>
+    <a href="https://claude.ai">Claude.ai</a>
+    <a href="https://docs.anthropic.com">Hujjatlar</a>
+  </div>
+</footer>
+
+<!-- NEURAL NETWORK CANVAS -->
+<script>
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+const NODES = 55;
+const nodes = Array.from({ length: NODES }, () => ({
+  x: Math.random() * canvas.width,
+  y: Math.random() * canvas.height,
+  vx: (Math.random() - 0.5) * 0.4,
+  vy: (Math.random() - 0.5) * 0.4,
+  r: Math.random() * 2 + 1
+}));
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Draw connections
+  for (let i = 0; i < nodes.length; i++) {
+    for (let j = i + 1; j < nodes.length; j++) {
+      const dx = nodes[i].x - nodes[j].x;
+      const dy = nodes[i].y - nodes[j].y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 140) {
+        const alpha = (1 - dist / 140) * 0.6;
+        ctx.beginPath();
+        ctx.strokeStyle = `rgba(79,142,247,${alpha})`;
+        ctx.lineWidth = 0.6;
+        ctx.moveTo(nodes[i].x, nodes[i].y);
+        ctx.lineTo(nodes[j].x, nodes[j].y);
+        ctx.stroke();
+      }
+    }
+  }
+
+  // Draw nodes
+  nodes.forEach(n => {
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(79,142,247,0.7)';
+    ctx.fill();
+
+    n.x += n.vx;
+    n.y += n.vy;
+    if (n.x < 0 || n.x > canvas.width)  n.vx *= -1;
+    if (n.y < 0 || n.y > canvas.height) n.vy *= -1;
+  });
+
+  requestAnimationFrame(draw);
+}
+draw();
+</script>
+
+</body>
+</html>
