@@ -4,460 +4,306 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Xumoyun Telmanov — English Teacher</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-  :root {
-    --bg:      #FAFAF8;
-    --bg2:     #F2F1EE;
-    --text:    #1A1A1A;
-    --muted:   #6B6B6B;
-    --accent:  #2E7D6B;
-    --accent2: #E8F4F1;
-    --border:  #E2E0DA;
-    --white:   #FFFFFF;
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Inter', sans-serif;
-    line-height: 1.6;
-  }
-
-  /* ── NAV ── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 1.1rem 6vw;
-    background: rgba(250,250,248,0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.15rem;
-    font-weight: 700;
-    color: var(--text);
-    letter-spacing: -0.01em;
-  }
-  .logo span { color: var(--accent); }
-
-  nav ul { list-style: none; display: flex; gap: 2rem; }
-  nav a {
-    text-decoration: none; color: var(--muted);
-    font-size: 0.87rem; font-weight: 500;
-    transition: color .2s;
-  }
-  nav a:hover { color: var(--accent); }
-
-  .nav-contact {
-    background: var(--accent);
-    color: #fff !important;
-    padding: 0.45rem 1.1rem;
-    border-radius: 6px;
-    font-weight: 600 !important;
-  }
-  .nav-contact:hover { background: #246358 !important; color: #fff !important; }
-
-  /* ── HERO ── */
-  .hero {
-    min-height: 100vh;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
-    gap: 4rem;
-    padding: 8rem 6vw 4rem;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .hero-text { }
-
-  .eyebrow {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    font-size: 0.78rem; font-weight: 600;
-    letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 1.5rem;
-    animation: fadeUp .7s ease both;
-  }
-  .eyebrow::before {
-    content: '';
-    display: block; width: 28px; height: 2px;
-    background: var(--accent);
-    border-radius: 2px;
-  }
-
-  h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2.8rem, 5vw, 4.2rem);
-    font-weight: 700;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    margin-bottom: 1.2rem;
-    animation: fadeUp .8s .08s ease both;
-  }
-
-  h1 em {
-    font-style: italic;
-    color: var(--accent);
-  }
-
-  .hero-desc {
-    font-size: 1.05rem;
-    color: var(--muted);
-    line-height: 1.75;
-    max-width: 460px;
-    margin-bottom: 2.2rem;
-    animation: fadeUp .9s .16s ease both;
-  }
-
-  .hero-btns {
-    display: flex; gap: 0.9rem; flex-wrap: wrap;
-    animation: fadeUp 1s .24s ease both;
-  }
-
-  .btn-primary {
-    background: var(--accent); color: #fff;
-    padding: 0.8rem 1.8rem; border-radius: 7px;
-    font-weight: 600; font-size: 0.92rem;
-    text-decoration: none;
-    transition: background .2s, transform .2s;
-  }
-  .btn-primary:hover { background: #246358; transform: translateY(-1px); }
-
-  .btn-outline {
-    background: transparent; color: var(--text);
-    padding: 0.8rem 1.8rem; border-radius: 7px;
-    font-weight: 500; font-size: 0.92rem;
-    text-decoration: none;
-    border: 1.5px solid var(--border);
-    transition: border-color .2s;
-  }
-  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
-
-  /* Hero visual */
-  .hero-visual {
-    display: flex; align-items: center; justify-content: center;
-    animation: fadeUp .9s .2s ease both;
-  }
-
-  .avatar-wrap {
-    position: relative;
-    width: 320px; height: 380px;
-  }
-
-  .avatar-bg {
-    position: absolute; inset: 0;
-    background: var(--accent2);
-    border-radius: 60% 40% 55% 45% / 50% 55% 45% 50%;
-    animation: morph 8s ease-in-out infinite;
-  }
-
-  @keyframes morph {
-    0%,100% { border-radius: 60% 40% 55% 45% / 50% 55% 45% 50%; }
-    33%      { border-radius: 50% 50% 45% 55% / 55% 45% 55% 45%; }
-    66%      { border-radius: 45% 55% 60% 40% / 45% 55% 45% 55%; }
-  }
-
-  .avatar-inner {
-    position: absolute; inset: 20px;
-    background: var(--white);
-    border-radius: inherit;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    gap: 0.6rem;
-    border: 1.5px solid var(--border);
-  }
-
-  .avatar-initials {
-    font-family: 'Playfair Display', serif;
-    font-size: 4.5rem;
-    font-weight: 700;
-    color: var(--accent);
-    line-height: 1;
-    letter-spacing: -0.03em;
-  }
-
-  .avatar-tag {
-    font-size: 0.78rem; font-weight: 600;
-    letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  .float-badge {
-    position: absolute;
-    background: var(--white);
-    border: 1.5px solid var(--border);
-    border-radius: 10px;
-    padding: 0.55rem 0.9rem;
-    font-size: 0.78rem; font-weight: 600;
-    color: var(--text);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
-    white-space: nowrap;
-  }
-  .fb1 { top: 20px; right: -20px; animation: float1 4s ease-in-out infinite; }
-  .fb2 { bottom: 40px; left: -24px; animation: float2 4.5s ease-in-out infinite; }
-  .fb3 { bottom: 10px; right: -10px; animation: float1 5s ease-in-out infinite; }
-
-  @keyframes float1 {
-    0%,100% { transform: translateY(0); }
-    50%      { transform: translateY(-8px); }
-  }
-  @keyframes float2 {
-    0%,100% { transform: translateY(0); }
-    50%      { transform: translateY(7px); }
-  }
-
-  /* ── DIVIDER ── */
-  .divider {
-    max-width: 1200px; margin: 0 auto;
-    border: none; border-top: 1px solid var(--border);
-  }
-
-  /* ── SECTIONS ── */
-  .section {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 5rem 6vw;
-  }
-
-  .sec-label {
-    font-size: 0.75rem; font-weight: 600;
-    letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--accent); margin-bottom: 0.8rem;
-  }
-
-  h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.7rem, 3.5vw, 2.5rem);
-    font-weight: 700; letter-spacing: -0.02em;
-    line-height: 1.2; margin-bottom: 0.9rem;
-  }
-
-  .sec-desc {
-    color: var(--muted); font-size: 1rem;
-    line-height: 1.75; max-width: 500px;
-    margin-bottom: 3rem;
-  }
-
-  /* ── SKILLS ── */
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1rem;
-  }
-
-  .skill-card {
-    background: var(--white);
-    border: 1.5px solid var(--border);
-    border-radius: 12px;
-    padding: 1.6rem;
-    transition: border-color .2s, transform .2s, box-shadow .2s;
-  }
-  .skill-card:hover {
-    border-color: var(--accent);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 30px rgba(46,125,107,0.1);
-  }
-
-  .skill-icon {
-    font-size: 1.8rem; margin-bottom: 0.8rem;
-  }
-
-  .skill-card h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.05rem; font-weight: 600;
-    margin-bottom: 0.4rem;
-  }
-
-  .skill-card p {
-    font-size: 0.86rem; color: var(--muted); line-height: 1.6;
-  }
-
-  /* skill bar */
-  .skill-bar-wrap { margin-top: 0.9rem; }
-  .skill-bar-label {
-    display: flex; justify-content: space-between;
-    font-size: 0.75rem; color: var(--muted); margin-bottom: 0.35rem;
-  }
-  .skill-bar {
-    height: 5px; background: var(--bg2); border-radius: 99px; overflow: hidden;
-  }
-  .skill-bar-fill {
-    height: 100%; background: var(--accent); border-radius: 99px;
-    width: 0;
-    transition: width 1.2s ease;
-  }
-
-  /* ── CERTIFICATES ── */
-  .certs-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1rem;
-  }
-
-  .cert-card {
-    background: var(--white);
-    border: 1.5px solid var(--border);
-    border-radius: 12px;
-    padding: 1.6rem;
-    display: flex; gap: 1rem; align-items: flex-start;
-    transition: border-color .2s, box-shadow .2s;
-  }
-  .cert-card:hover {
-    border-color: var(--accent);
-    box-shadow: 0 6px 24px rgba(46,125,107,0.08);
-  }
-
-  .cert-icon {
-    width: 46px; height: 46px; flex-shrink: 0;
-    background: var(--accent2);
-    border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.4rem;
-  }
-
-  .cert-card h3 {
-    font-weight: 600; font-size: 0.95rem; margin-bottom: 0.3rem;
-  }
-  .cert-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.55; }
-
-  /* ── PROJECTS ── */
-  .project-card {
-    background: var(--white);
-    border: 1.5px solid var(--border);
-    border-radius: 14px;
-    padding: 2rem;
-    display: flex; align-items: center; gap: 2rem;
-    transition: border-color .2s, box-shadow .2s;
-    margin-bottom: 1rem;
-  }
-  .project-card:hover {
-    border-color: var(--accent);
-    box-shadow: 0 8px 32px rgba(46,125,107,0.08);
-  }
-
-  .project-icon {
-    width: 60px; height: 60px; flex-shrink: 0;
-    background: var(--accent2);
-    border-radius: 14px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.8rem;
-  }
-
-  .project-card h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.1rem; font-weight: 600; margin-bottom: 0.35rem;
-  }
-  .project-card p { font-size: 0.87rem; color: var(--muted); line-height: 1.6; }
-
-  .tag {
-    display: inline-block;
-    background: var(--accent2); color: var(--accent);
-    font-size: 0.72rem; font-weight: 600;
-    padding: 0.2rem 0.6rem; border-radius: 4px;
-    margin-top: 0.5rem; margin-right: 0.3rem;
-    letter-spacing: 0.04em;
-  }
-
-  /* ── CONTACT ── */
-  .contact-wrap {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    align-items: start;
-  }
-
-  .contact-info { }
-
-  .contact-item {
-    display: flex; align-items: center; gap: 1rem;
-    padding: 1.1rem 0;
-    border-bottom: 1px solid var(--border);
-  }
-  .contact-item:first-child { border-top: 1px solid var(--border); }
-
-  .c-icon {
-    width: 40px; height: 40px;
-    background: var(--accent2);
-    border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.1rem; flex-shrink: 0;
-  }
-
-  .c-label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
-  .c-value { font-weight: 600; font-size: 0.95rem; margin-top: 0.1rem; }
-  .c-value a { color: var(--text); text-decoration: none; }
-  .c-value a:hover { color: var(--accent); }
-
-  /* CTA box */
-  .cta-box {
-    background: var(--accent);
-    border-radius: 16px;
-    padding: 2.5rem;
-    color: #fff;
-  }
-  .cta-box h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.5rem; font-weight: 700;
-    margin-bottom: 0.7rem;
-  }
-  .cta-box p { font-size: 0.92rem; opacity: .85; line-height: 1.65; margin-bottom: 1.5rem; }
-  .cta-box a {
-    display: inline-block;
-    background: #fff; color: var(--accent);
-    padding: 0.7rem 1.5rem; border-radius: 7px;
-    font-weight: 700; font-size: 0.9rem;
-    text-decoration: none;
-    transition: opacity .2s;
-  }
-  .cta-box a:hover { opacity: .9; }
-
-  /* ── FOOTER ── */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 2rem 6vw;
-    display: flex; align-items: center; justify-content: space-between;
-    flex-wrap: wrap; gap: 1rem;
-    max-width: 100%;
-  }
-  footer p { font-size: 0.82rem; color: var(--muted); }
-  .footer-logo {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700; font-size: 1rem; color: var(--text);
-  }
-  .footer-logo span { color: var(--accent); }
-
-  /* ── ANIMATIONS ── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(18px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
-  .reveal.visible { opacity: 1; transform: none; }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 768px) {
-    .hero { grid-template-columns: 1fr; gap: 3rem; padding-top: 7rem; text-align: center; }
-    .hero-visual { order: -1; }
-    .avatar-wrap { width: 240px; height: 290px; }
-    .avatar-initials { font-size: 3.2rem; }
-    .fb1, .fb2, .fb3 { display: none; }
-    .contact-wrap { grid-template-columns: 1fr; }
-    nav ul { display: none; }
-    .hero-desc { margin: 0 auto 2rem; }
-  }
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+ 
+:root{
+  --navy:    #0B1F3A;
+  --navy2:   #112447;
+  --blue:    #1A56DB;
+  --blue2:   #2563EB;
+  --sky:     #EFF6FF;
+  --white:   #FFFFFF;
+  --text:    #0B1F3A;
+  --muted:   #5A7193;
+  --border:  #D1DCF0;
+  --gold:    #F59E0B;
+}
+ 
+html{scroll-behavior:smooth}
+body{background:var(--white);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.6}
+ 
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 6vw;height:68px;
+  background:var(--navy);
+}
+.logo{
+  font-family:'DM Serif Display',serif;
+  font-size:1.25rem;color:var(--white);letter-spacing:-0.01em;
+}
+.logo span{color:#60A5FA}
+nav ul{list-style:none;display:flex;gap:2rem}
+nav a{text-decoration:none;color:rgba(255,255,255,.65);font-size:.88rem;font-weight:500;transition:color .2s}
+nav a:hover{color:#fff}
+.nav-cta{
+  background:var(--blue2);color:#fff!important;
+  padding:.42rem 1.1rem;border-radius:6px;font-weight:600!important;
+}
+.nav-cta:hover{background:#1d4ed8!important}
+ 
+/* HERO */
+.hero{
+  background:var(--navy);
+  min-height:100vh;
+  display:grid;grid-template-columns:1fr 1fr;
+  align-items:center;gap:4rem;
+  padding:8rem 6vw 5rem;
+  max-width:1200px;margin:0 auto;
+  position:relative;
+}
+.hero::after{
+  content:'';position:absolute;
+  right:0;top:0;bottom:0;width:48%;
+  background:linear-gradient(135deg,#112447 0%,#0B1F3A 100%);
+  clip-path:polygon(8% 0,100% 0,100% 100%,0% 100%);
+  z-index:0;
+}
+.hero-text{position:relative;z-index:1}
+.hero-visual{position:relative;z-index:1;display:flex;align-items:center;justify-content:center}
+ 
+.eyebrow{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  color:#60A5FA;margin-bottom:1.4rem;
+  animation:fadeUp .7s ease both;
+}
+.eyebrow-dot{width:6px;height:6px;background:#60A5FA;border-radius:50%}
+ 
+h1{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(2.6rem,5vw,4rem);
+  font-weight:400;line-height:1.1;
+  color:var(--white);
+  margin-bottom:1.2rem;
+  animation:fadeUp .8s .08s ease both;
+}
+h1 em{font-style:italic;color:#60A5FA}
+ 
+.hero-desc{
+  font-size:1rem;color:rgba(255,255,255,.65);
+  line-height:1.75;max-width:440px;
+  margin-bottom:2.2rem;
+  animation:fadeUp .9s .16s ease both;
+}
+ 
+.hero-btns{display:flex;gap:.85rem;flex-wrap:wrap;animation:fadeUp 1s .24s ease both}
+ 
+.btn-primary{
+  background:var(--blue2);color:#fff;
+  padding:.8rem 1.8rem;border-radius:7px;
+  font-weight:600;font-size:.92rem;text-decoration:none;
+  transition:background .2s,transform .2s;
+  box-shadow:0 4px 16px rgba(37,99,235,.4);
+}
+.btn-primary:hover{background:#1d4ed8;transform:translateY(-1px)}
+ 
+.btn-outline{
+  background:transparent;color:rgba(255,255,255,.85);
+  padding:.8rem 1.8rem;border-radius:7px;
+  font-weight:500;font-size:.92rem;text-decoration:none;
+  border:1.5px solid rgba(255,255,255,.2);
+  transition:border-color .2s,color .2s;
+}
+.btn-outline:hover{border-color:#60A5FA;color:#60A5FA}
+ 
+/* Avatar */
+.av-wrap{position:relative;width:300px;height:300px}
+.av-ring{
+  position:absolute;inset:0;
+  border-radius:50%;
+  border:2px solid rgba(96,165,250,.25);
+  animation:spin 18s linear infinite;
+}
+.av-ring::before{
+  content:'';position:absolute;top:-4px;left:50%;
+  width:8px;height:8px;background:#60A5FA;border-radius:50%;
+  transform:translateX(-50%);
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.av-inner{
+  position:absolute;inset:20px;
+  background:linear-gradient(135deg,#1e3a5f,#112447);
+  border-radius:50%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:.4rem;border:1px solid rgba(96,165,250,.2);
+}
+.av-initials{
+  font-family:'DM Serif Display',serif;
+  font-size:4rem;font-weight:400;
+  color:#60A5FA;line-height:1;
+}
+.av-sub{font-size:.72rem;color:rgba(255,255,255,.5);letter-spacing:.1em;text-transform:uppercase}
+ 
+.pill{
+  position:absolute;
+  background:var(--navy2);border:1px solid rgba(96,165,250,.25);
+  border-radius:8px;padding:.5rem .9rem;
+  font-size:.75rem;font-weight:600;color:rgba(255,255,255,.85);
+  white-space:nowrap;backdrop-filter:blur(8px);
+}
+.p1{top:10px;right:-30px;animation:fl1 4s ease-in-out infinite}
+.p2{bottom:30px;left:-36px;animation:fl2 4.5s ease-in-out infinite}
+.p3{bottom:5px;right:-20px;animation:fl1 5s ease-in-out infinite}
+ 
+@keyframes fl1{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes fl2{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+ 
+/* STATS BAR */
+.stats-bar{
+  background:var(--blue2);
+  display:flex;justify-content:center;flex-wrap:wrap;
+}
+.stat-item{
+  padding:1.6rem 3rem;text-align:center;
+  border-right:1px solid rgba(255,255,255,.15);
+}
+.stat-item:last-child{border-right:none}
+.stat-num{font-family:'DM Serif Display',serif;font-size:2rem;color:#fff;line-height:1}
+.stat-lbl{font-size:.72rem;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.08em;margin-top:.25rem}
+ 
+/* SECTION */
+.sec{max-width:1200px;margin:0 auto;padding:5rem 6vw}
+.sec-label{font-size:.72rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--blue2);margin-bottom:.7rem}
+h2{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(1.7rem,3.5vw,2.6rem);
+  font-weight:400;letter-spacing:-.01em;line-height:1.2;margin-bottom:.8rem;
+  color:var(--navy);
+}
+.sec-desc{color:var(--muted);font-size:.97rem;line-height:1.8;max-width:500px;margin-bottom:3rem}
+ 
+hr.div{border:none;border-top:1px solid var(--border);max-width:1200px;margin:0 auto}
+ 
+/* SKILLS */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.1rem}
+.sk-card{
+  background:var(--sky);border:1.5px solid var(--border);
+  border-radius:12px;padding:1.6rem;
+  transition:border-color .2s,box-shadow .2s,transform .2s;
+}
+.sk-card:hover{border-color:var(--blue2);box-shadow:0 8px 28px rgba(26,86,219,.1);transform:translateY(-3px)}
+.sk-ico{font-size:1.7rem;margin-bottom:.75rem}
+.sk-card h3{font-size:1rem;font-weight:600;margin-bottom:.35rem;color:var(--navy)}
+.sk-card p{font-size:.84rem;color:var(--muted);line-height:1.6}
+.bar-wrap{margin-top:.85rem}
+.bar-top{display:flex;justify-content:space-between;font-size:.72rem;color:var(--muted);margin-bottom:.3rem}
+.bar{height:5px;background:var(--border);border-radius:99px;overflow:hidden}
+.bar-fill{height:100%;background:var(--blue2);border-radius:99px;width:0;transition:width 1.2s ease}
+ 
+/* CERTS */
+.certs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.1rem}
+.cert{
+  background:var(--white);border:1.5px solid var(--border);
+  border-radius:12px;padding:1.6rem;
+  display:flex;gap:1rem;align-items:flex-start;
+  transition:border-color .2s,box-shadow .2s;
+}
+.cert:hover{border-color:var(--blue2);box-shadow:0 6px 22px rgba(26,86,219,.08)}
+.cert-ico{
+  width:44px;height:44px;flex-shrink:0;
+  background:var(--sky);border-radius:10px;
+  display:flex;align-items:center;justify-content:center;font-size:1.3rem;
+  border:1px solid var(--border);
+}
+.cert h3{font-size:.93rem;font-weight:600;color:var(--navy);margin-bottom:.3rem}
+.cert p{font-size:.81rem;color:var(--muted);line-height:1.55}
+ 
+/* PROJECTS */
+.proj{
+  background:var(--white);border:1.5px solid var(--border);
+  border-radius:14px;padding:1.8rem 2rem;
+  display:flex;align-items:center;gap:1.8rem;
+  margin-bottom:1rem;
+  transition:border-color .2s,box-shadow .2s;
+}
+.proj:hover{border-color:var(--blue2);box-shadow:0 8px 30px rgba(26,86,219,.08)}
+.proj-ico{
+  width:56px;height:56px;flex-shrink:0;
+  background:var(--sky);border-radius:12px;
+  display:flex;align-items:center;justify-content:center;font-size:1.7rem;
+  border:1px solid var(--border);
+}
+.proj h3{font-family:'DM Serif Display',serif;font-size:1.05rem;font-weight:400;color:var(--navy);margin-bottom:.3rem}
+.proj p{font-size:.85rem;color:var(--muted);line-height:1.6}
+.tag{
+  display:inline-block;background:var(--sky);color:var(--blue2);
+  font-size:.7rem;font-weight:600;padding:.18rem .55rem;border-radius:4px;
+  margin-top:.45rem;margin-right:.25rem;letter-spacing:.03em;
+  border:1px solid var(--border);
+}
+ 
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+.c-item{
+  display:flex;align-items:center;gap:.9rem;
+  padding:1rem 0;border-bottom:1px solid var(--border);
+}
+.c-item:first-child{border-top:1px solid var(--border)}
+.c-ico{
+  width:40px;height:40px;background:var(--sky);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;font-size:1.05rem;
+  flex-shrink:0;border:1px solid var(--border);
+}
+.c-lbl{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.c-val{font-weight:600;font-size:.93rem;color:var(--navy);margin-top:.1rem}
+.c-val a{color:var(--navy);text-decoration:none}
+.c-val a:hover{color:var(--blue2)}
+ 
+/* CTA BOX */
+.cta-box{
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);
+  border-radius:16px;padding:2.4rem;color:#fff;
+  border:1px solid rgba(96,165,250,.15);
+}
+.cta-box h3{font-family:'DM Serif Display',serif;font-size:1.5rem;font-weight:400;margin-bottom:.65rem}
+.cta-box p{font-size:.9rem;opacity:.75;line-height:1.65;margin-bottom:1.5rem}
+.cta-box a{
+  display:inline-block;background:var(--blue2);color:#fff;
+  padding:.7rem 1.5rem;border-radius:7px;font-weight:600;font-size:.88rem;
+  text-decoration:none;transition:background .2s;
+  box-shadow:0 4px 14px rgba(37,99,235,.4);
+}
+.cta-box a:hover{background:#1d4ed8}
+ 
+/* FOOTER */
+footer{
+  background:var(--navy);
+  padding:1.8rem 6vw;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;
+}
+footer p{font-size:.8rem;color:rgba(255,255,255,.45)}
+.f-logo{font-family:'DM Serif Display',serif;font-size:1rem;color:#fff}
+.f-logo span{color:#60A5FA}
+.f-links{display:flex;gap:1.5rem}
+.f-links a{font-size:.8rem;color:rgba(255,255,255,.45);text-decoration:none}
+.f-links a:hover{color:#fff}
+ 
+/* ANIM */
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:none}
+ 
+/* RESPONSIVE */
+@media(max-width:768px){
+  .hero{grid-template-columns:1fr;gap:3rem;padding-top:7rem;text-align:center}
+  .hero::after{display:none}
+  .hero-visual{order:-1}
+  .av-wrap{width:220px;height:220px}
+  .av-initials{font-size:3rem}
+  .p1,.p2,.p3{display:none}
+  nav ul{display:none}
+  .contact-grid{grid-template-columns:1fr}
+  .stat-item{border-right:none;border-bottom:1px solid rgba(255,255,255,.15)}
+  .stat-item:last-child{border-bottom:none}
+}
 </style>
 </head>
 <body>
-
+ 
 <!-- NAV -->
 <nav>
   <div class="logo">X<span>.</span>Telmanov</div>
@@ -465,237 +311,223 @@
     <li><a href="#haqimda">Haqimda</a></li>
     <li><a href="#sertifikatlar">Sertifikatlar</a></li>
     <li><a href="#loyihalar">Loyihalar</a></li>
-    <li><a href="#aloqa" class="nav-contact">Bog'lanish</a></li>
+    <li><a href="#aloqa" class="nav-cta">Bog'lanish</a></li>
   </ul>
 </nav>
-
+ 
 <!-- HERO -->
+<div style="background:var(--navy);overflow:hidden">
 <div class="hero">
   <div class="hero-text">
-    <div class="eyebrow">English Teacher & IT Enthusiast</div>
+    <div class="eyebrow"><span class="eyebrow-dot"></span>English Teacher & IT Specialist</div>
     <h1>Xumoyun<br><em>Telmanov</em></h1>
     <p class="hero-desc">
-      Bilimni ilham bilan ulashuvchi o'qituvchi. Ingliz tili va informatika sohasida chuqur tajribaga ega bo'lgan, har bir o'quvchiga individual yondashadigan pedagog.
+      Ingliz tili va informatika o'qituvchisi. Har bir o'quvchiga individual yondashadigan, bilimni ilham va qiziqish bilan ulashuvchi pedagog.
     </p>
     <div class="hero-btns">
       <a href="#aloqa" class="btn-primary">Bog'lanish →</a>
       <a href="#haqimda" class="btn-outline">Ko'proq bilish</a>
     </div>
   </div>
-
   <div class="hero-visual">
-    <div class="avatar-wrap">
-      <div class="avatar-bg"></div>
-      <div class="avatar-inner">
-        <div class="avatar-initials">XT</div>
-        <div class="avatar-tag">Teacher · Developer</div>
+    <div class="av-wrap">
+      <div class="av-ring"></div>
+      <div class="av-inner">
+        <div class="av-initials">XT</div>
+        <div class="av-sub">Teacher · Dev</div>
       </div>
-      <div class="float-badge fb1">🎓 English Teacher</div>
-      <div class="float-badge fb2">💻 IT & Web</div>
-      <div class="float-badge fb3">🎵 Music</div>
+      <div class="pill p1">🎓 English</div>
+      <div class="pill p2">💻 IT & Web</div>
+      <div class="pill p3">🎵 Music</div>
     </div>
   </div>
 </div>
-
-<hr class="divider">
-
+</div>
+ 
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item"><div class="stat-num">3+</div><div class="stat-lbl">Yillik tajriba</div></div>
+  <div class="stat-item"><div class="stat-num">3</div><div class="stat-lbl">Sertifikat</div></div>
+  <div class="stat-item"><div class="stat-num">100%</div><div class="stat-lbl">Fidoyilik</div></div>
+  <div class="stat-item"><div class="stat-num">∞</div><div class="stat-lbl">Ishtiyoq</div></div>
+</div>
+ 
 <!-- ABOUT -->
-<section class="section reveal" id="haqimda">
+<section class="sec reveal" id="haqimda">
   <div class="sec-label">Men haqimda</div>
   <h2>Kimman men?</h2>
   <p class="sec-desc">
-    Men Xumoyun Telmanov — ingliz tili o'qituvchisi va IT mutaxassisi. Har bir o'quvchiga qalbdan yondashaман, chunki bilim berish — bu mening ishtiyoqim. Informatika va ingliz tili bo'yicha chuqur bilimga ega bo'lib, zamonaviy texnologiyalardan darslarimda faol foydalanaman.
+    Men Xumoyun Telmanov — ingliz tili o'qituvchisi va IT mutaxassisi. Zamonaviy pedagogik uslublar orqali o'quvchilarni muvaffaqiyatga tayyorlashni o'z oldimga maqsad qilib qo'yganman. Har bir dars — yangi imkoniyat.
   </p>
-
   <div class="skills-grid">
-    <div class="skill-card">
-      <div class="skill-icon">🇬🇧</div>
+    <div class="sk-card">
+      <div class="sk-ico">🇬🇧</div>
       <h3>Ingliz tili</h3>
-      <p>Grammar, Speaking, Listening, Writing — to'liq dastur bo'yicha professional o'qitish.</p>
-      <div class="skill-bar-wrap">
-        <div class="skill-bar-label"><span>Daraja</span><span>95%</span></div>
-        <div class="skill-bar"><div class="skill-bar-fill" data-width="95"></div></div>
+      <p>Grammar, Speaking, Listening, Writing — to'liq kurs bo'yicha professional daraja.</p>
+      <div class="bar-wrap">
+        <div class="bar-top"><span>Daraja</span><span>95%</span></div>
+        <div class="bar"><div class="bar-fill" data-w="95"></div></div>
       </div>
     </div>
-    <div class="skill-card">
-      <div class="skill-icon">💻</div>
+    <div class="sk-card">
+      <div class="sk-ico">💻</div>
       <h3>Informatika</h3>
       <p>Kompyuter savodxonligi, dasturlash asoslari va zamonaviy texnologiyalar.</p>
-      <div class="skill-bar-wrap">
-        <div class="skill-bar-label"><span>Daraja</span><span>88%</span></div>
-        <div class="skill-bar"><div class="skill-bar-fill" data-width="88"></div></div>
+      <div class="bar-wrap">
+        <div class="bar-top"><span>Daraja</span><span>88%</span></div>
+        <div class="bar"><div class="bar-fill" data-w="88"></div></div>
       </div>
     </div>
-    <div class="skill-card">
-      <div class="skill-icon">🌐</div>
+    <div class="sk-card">
+      <div class="sk-ico">🌐</div>
       <h3>Veb-ishlab chiqish</h3>
       <p>HTML, CSS va JavaScript yordamida zamonaviy veb-saytlar yaratish.</p>
-      <div class="skill-bar-wrap">
-        <div class="skill-bar-label"><span>Daraja</span><span>80%</span></div>
-        <div class="skill-bar"><div class="skill-bar-fill" data-width="80"></div></div>
+      <div class="bar-wrap">
+        <div class="bar-top"><span>Daraja</span><span>80%</span></div>
+        <div class="bar"><div class="bar-fill" data-w="80"></div></div>
       </div>
     </div>
-    <div class="skill-card">
-      <div class="skill-icon">🎵</div>
+    <div class="sk-card">
+      <div class="sk-ico">🎵</div>
       <h3>Musiqa</h3>
-      <p>Musiqiy iste'dod va bilim — ijodiy o'qitish uslubimning ajralmas qismi.</p>
-      <div class="skill-bar-wrap">
-        <div class="skill-bar-label"><span>Daraja</span><span>85%</span></div>
-        <div class="skill-bar"><div class="skill-bar-fill" data-width="85"></div></div>
+      <p>Musiqiy iste'dod — ijodiy va ilhomli o'qitish uslubimning bir qismi.</p>
+      <div class="bar-wrap">
+        <div class="bar-top"><span>Daraja</span><span>85%</span></div>
+        <div class="bar"><div class="bar-fill" data-w="85"></div></div>
       </div>
     </div>
   </div>
 </section>
-
-<hr class="divider">
-
-<!-- CERTIFICATES -->
-<section class="section reveal" id="sertifikatlar">
+ 
+<hr class="div">
+ 
+<!-- CERTS -->
+<section class="sec reveal" id="sertifikatlar">
   <div class="sec-label">Yutuqlarim</div>
   <h2>Sertifikat va diplomlar</h2>
-  <p class="sec-desc">
-    Har bir sertifikat — bu mehnат va izlanishning mahsuli. Professional rivojlanishga bo'lgan intilishim hech qachon to'xtamaydi.
-  </p>
+  <p class="sec-desc">Har bir sertifikat — bu mehnat, izlanish va professional o'sishning belgisi.</p>
   <div class="certs-grid">
-    <div class="cert-card">
-      <div class="cert-icon">🎓</div>
+    <div class="cert">
+      <div class="cert-ico">🎓</div>
       <div>
         <h3>English Language Certificate</h3>
-        <p>Ingliz tili bo'yicha professional darajani tasdiqlovchi sertifikat. Grammatika, so'zlashuv va yozuvda yuqori ko'rsatkichlar.</p>
+        <p>Ingliz tili bo'yicha professional darajani tasdiqlovchi sertifikat. Grammatika va kommunikativ ko'nikmalar.</p>
       </div>
     </div>
-    <div class="cert-card">
-      <div class="cert-icon">🎵</div>
+    <div class="cert">
+      <div class="cert-ico">🎵</div>
       <div>
         <h3>Music Certificate</h3>
-        <p>Musiqa nazariyasi va amaliyoti bo'yicha sertifikat. Ijodiy fikrlash va san'atga bo'lgan sevgining namoyishi.</p>
+        <p>Musiqa nazariyasi va amaliyoti bo'yicha sertifikat. Ijodiy fikrlash va san'atga bo'lgan chuqur ishtiyoq.</p>
       </div>
     </div>
-    <div class="cert-card">
-      <div class="cert-icon">💻</div>
+    <div class="cert">
+      <div class="cert-ico">💻</div>
       <div>
         <h3>IT & Informatika</h3>
-        <p>Axborot texnologiyalari sohasida professional bilim va ko'nikmalar. Zamonaviy dasturiy ta'minot va vositalar.</p>
+        <p>Axborot texnologiyalari sohasidagi bilim va ko'nikmalarni tasdiqlovchi professional hujjat.</p>
       </div>
     </div>
   </div>
 </section>
-
-<hr class="divider">
-
+ 
+<hr class="div">
+ 
 <!-- PROJECTS -->
-<section class="section reveal" id="loyihalar">
+<section class="sec reveal" id="loyihalar">
   <div class="sec-label">Ishlarim</div>
   <h2>Loyihalar va tajriba</h2>
-  <p class="sec-desc">
-    Nazariy bilimlarni amaliyotda qo'llash — mening ustuvorligim. Mana qilgan ishlarimdan ba'zilari.
-  </p>
-
-  <div class="project-card">
-    <div class="project-icon">🌐</div>
+  <p class="sec-desc">Bilimlarni amalda qo'llash — mening asosiy tamoyilim.</p>
+ 
+  <div class="proj">
+    <div class="proj-ico">🌐</div>
     <div>
-      <h3>Shaxsiy veb-sayt</h3>
-      <p>HTML, CSS va JavaScript texnologiyalaridan foydalanib yaratilgan zamonaviy portfolio veb-sayt. Responsive dizayn va qulay interfeys.</p>
+      <h3>Shaxsiy Portfolio Veb-sayt</h3>
+      <p>HTML, CSS va JavaScript texnologiyalarida yaratilgan zamonaviy, responsive portfolio sayt.</p>
       <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span>
     </div>
   </div>
-
-  <div class="project-card">
-    <div class="project-icon">📚</div>
+  <div class="proj">
+    <div class="proj-ico">📚</div>
     <div>
       <h3>English Teaching Program</h3>
-      <p>O'quvchilarga ingliz tilini qiziqarli va samarali usulda o'rgatish dasturi. Individual yondashuv va zamonaviy metodikalar asosida.</p>
+      <p>O'quvchilarga ingliz tilini samarali va qiziqarli usulda o'rgatuvchi individual dastur.</p>
       <span class="tag">Teaching</span><span class="tag">English</span><span class="tag">Education</span>
     </div>
   </div>
-
-  <div class="project-card">
-    <div class="project-icon">🎯</div>
+  <div class="proj">
+    <div class="proj-ico">🎯</div>
     <div>
       <h3>IT Literacy Course</h3>
-      <p>Kompyuter savodxonligi va informatika asoslarini o'rgatuvchi kurs. Yoshlarni raqamli kelajakka tayyorlash maqsadida yaratilgan.</p>
+      <p>Kompyuter savodxonligi va informatika asoslarini o'rgatuvchi kurs. Yoshlarni raqamli kelajakka tayyorlash.</p>
       <span class="tag">IT</span><span class="tag">Informatika</span><span class="tag">Kurs</span>
     </div>
   </div>
 </section>
-
-<hr class="divider">
-
+ 
+<hr class="div">
+ 
 <!-- CONTACT -->
-<section class="section reveal" id="aloqa">
+<section class="sec reveal" id="aloqa">
   <div class="sec-label">Aloqa</div>
   <h2>Bog'laning</h2>
-  <p class="sec-desc">
-    Hamkorlik, dars yoki savol-javob uchun bemalol murojaat qiling. Har bir xabarga javob beraman.
-  </p>
-
-  <div class="contact-wrap">
-    <div class="contact-info">
-      <div class="contact-item">
-        <div class="c-icon">📞</div>
+  <p class="sec-desc">Hamkorlik, dars yoki istalgan savol uchun bemalol murojaat qiling.</p>
+  <div class="contact-grid">
+    <div>
+      <div class="c-item">
+        <div class="c-ico">📞</div>
         <div>
-          <div class="c-label">Telefon</div>
-          <div class="c-value"><a href="tel:+998996953311">+998 99 695 33 11</a></div>
+          <div class="c-lbl">Telefon</div>
+          <div class="c-val"><a href="tel:+998996953311">+998 99 695 33 11</a></div>
         </div>
       </div>
-      <div class="contact-item">
-        <div class="c-icon">📍</div>
+      <div class="c-item">
+        <div class="c-ico">📍</div>
         <div>
-          <div class="c-label">Joylashuv</div>
-          <div class="c-value">O'zbekiston</div>
+          <div class="c-lbl">Joylashuv</div>
+          <div class="c-val">O'zbekiston, Toshkent</div>
         </div>
       </div>
-      <div class="contact-item">
-        <div class="c-icon">🎓</div>
+      <div class="c-item">
+        <div class="c-ico">🎓</div>
         <div>
-          <div class="c-label">Mutaxassislik</div>
-          <div class="c-value">English Teacher & IT Specialist</div>
+          <div class="c-lbl">Mutaxassislik</div>
+          <div class="c-val">English Teacher & IT Specialist</div>
         </div>
       </div>
-      <div class="contact-item">
-        <div class="c-icon">⏰</div>
+      <div class="c-item">
+        <div class="c-ico">⏰</div>
         <div>
-          <div class="c-label">Ish vaqti</div>
-          <div class="c-value">Dushanba–Shanba, 9:00–18:00</div>
+          <div class="c-lbl">Ish vaqti</div>
+          <div class="c-val">Dushanba–Shanba, 9:00–18:00</div>
         </div>
       </div>
     </div>
-
     <div class="cta-box">
       <h3>Dars boshlashga tayyormisiz?</h3>
-      <p>
-        Ingliz tili yoki informatika bo'yicha dars olishni istaysizmi? Men bilan bog'laning — birinchi dars bepul! Har bir o'quvchi uchun individual dastur tuzamiz.
-      </p>
+      <p>Ingliz tili yoki informatika bo'yicha professional dars olishni istasangiz — menga qo'ng'iroq qiling. Birinchi dars bepul!</p>
       <a href="tel:+998996953311">📞 Hozir qo'ng'iroq qiling</a>
     </div>
   </div>
 </section>
-
+ 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">X<span>.</span>Telmanov</div>
+  <div class="f-logo">X<span>.</span>Telmanov</div>
   <p>© 2025 Xumoyun Telmanov. Barcha huquqlar himoyalangan.</p>
-  <p style="font-size:0.8rem; color: var(--muted);">English Teacher · IT Specialist · Toshkent</p>
+  <div class="f-links">
+    <a href="#haqimda">Haqimda</a>
+    <a href="#aloqa">Aloqa</a>
+  </div>
 </footer>
-
+ 
 <script>
-  // Reveal on scroll
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
-  }, { threshold: 0.12 });
-  reveals.forEach(r => observer.observe(r));
-
-  // Skill bars animate when visible
-  const bars = document.querySelectorAll('.skill-bar-fill');
-  const barObserver = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.style.width = e.target.dataset.width + '%';
-      }
-    });
-  }, { threshold: 0.5 });
-  bars.forEach(b => barObserver.observe(b));
+const obs = new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.1});
+document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
+ 
+const bo = new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.style.width=e.target.dataset.w+'%'}),{threshold:.5});
+document.querySelectorAll('.bar-fill').forEach(b=>bo.observe(b));
 </script>
 </body>
 </html>
+ 
