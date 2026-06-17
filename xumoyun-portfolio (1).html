@@ -530,4 +530,3 @@ document.querySelectorAll('.bar-fill').forEach(b=>bo.observe(b));
 </script>
 </body>
 </html>
- 
